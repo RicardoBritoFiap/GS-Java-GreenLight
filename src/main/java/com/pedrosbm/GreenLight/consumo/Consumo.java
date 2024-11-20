@@ -2,6 +2,8 @@ package com.pedrosbm.GreenLight.consumo;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.pedrosbm.GreenLight.lampada.Lampada;
 
 import jakarta.persistence.Entity;
@@ -20,6 +22,8 @@ public class Consumo {
     private Long consumoId;
 
     private Float consumoWh;
+
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate mesConsumo;
 
     @ManyToOne

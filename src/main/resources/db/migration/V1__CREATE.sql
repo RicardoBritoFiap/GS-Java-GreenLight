@@ -19,7 +19,7 @@ create table if not exists lampada(
 create table if not exists consumo(
     consumo_id bigint auto_increment,
     consumo_wh float,
-    mesConsumo datetime,
+    mes_consumo datetime,
     lampada_id bigint,
     foreign key(lampada_id) references lampada(lampada_id),
     primary key(consumo_id)

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org/">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Home</title>
+</head>
+
+<body class="container">
+    <header class="mb-5">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <h1 class="title is-0">
+                        <span class="icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </span>
+                        <span>GreenLight</span>
+                    </h1>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a th:href="@{/consumos}" class="navbar-item">Conferir consumo</a>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a class="button is-normal" th:href="@{/form}">
+                            <span class="icon">
+                                <i class="fas fa-plus"></i>
+                            </span>
+                            <span>Adicionar nova lampada</span>
+                        </a>
+                    </div>
+                    <div class="navbar-item">
+                        <form th:action="@{/logout}" method="post">
+                            <button class="button is-normal is-danger" th:href="@{/user}">
+                                <span class="icon">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                </span>
+                                <span>Sair</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <form th:action="@{/task}" method="post" class="is-max-tablet" th:object="${lampada}">
+            <div class="field">
+                <label class="label">Nome do dispositivo</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="LampadaBluetooth" th:field="*{nomeDispositivo}">
+                </div>
+                <p class="help is-danger" th:errors="*{nomeDispositivo}"></p>
+            </div>
+
+            <div class="field">
+                <label class="label">Apelido</label>
+                <div class="control">
+                    <input class="input" type="text" placeholder="Exemplo: Sala de estar" th:field="*{apelido}">
+                </div>
+                <p class="help is-danger" th:errors="*{apelido}"></p>
+            </div>
+
+            <a href="/" class="button is-default">
+                <span class="icon is-small">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span>Cancelar</span>
+            </a>
+
+            <button class="button is-primary">
+                <span>Cadastrar</span>
+                <span class="icon is-small">
+                    <i class="fas fa-check"></i>
+                </span>
+            </button>
+        </form>
+    </main>
+</body>
+
+</html>

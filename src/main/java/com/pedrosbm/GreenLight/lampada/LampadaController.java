@@ -3,22 +3,40 @@ package com.pedrosbm.GreenLight.lampada;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.pedrosbm.GreenLight.user.User;
+import com.pedrosbm.GreenLight.user.UserRepository;
+
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
 public class LampadaController {
-    @Autowired
     private LampadaRepository repository;
+    private UserRepository repository2;
+
+    public LampadaController(LampadaRepository repository, UserRepository repository2) {
+        this.repository = repository;
+        this.repository2 = repository2;
+    }
+
+    @GetMapping("/form")
+    public String form(Lampada lampada){
+        return "form";
+    }
 
     @GetMapping()
     public String getLampadas(Model model, @AuthenticationPrincipal OAuth2User principal) {
@@ -36,6 +54,22 @@ public class LampadaController {
 
         model.addAttribute("lampada", lampada);
         return "lampada";
+    }
+
+    @PostMapping("/task")
+    public String create(@Valid Lampada lampada, BindingResult result, RedirectAttributes redirect, @AuthenticationPrincipal OAuth2User principal){
+        if (result.hasErrors()) return "form";
+
+        String email = principal.getAttribute("email");
+        User user = repository2.findByEmail(email).get();
+        lampada.setUser(user);
+        lampada.setModo("automatico");
+        lampada.setEstado("apagada");
+
+        repository.save(lampada);
+        
+        redirect.addFlashAttribute("message", "lampada cadastrada com sucesso");
+        return "redirect:/";
     }
     
     @PutMapping("lampada/acender/{id}")

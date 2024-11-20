@@ -61,66 +61,34 @@
     </header>
 
     <main class="container">
-        <div class="fixed-grid is-col-min-1">
+        <div class="fixed-grid has-3-cols">
             <div class="grid">
-                <div th:each="lampada: ${lampadas}" class="card is-large">
+                <div th:each="consumo: ${consumos}" class="card is-large">
                     <header class="card-header">
-                        <p class="card-header-title" th:text="${lampada.nomeDispositivo}"></p>
-                        <form
-                            th:action="@{/lampada/{id}(id=${lampada.lampadaId})}" method="post">
-                            <input type="hidden" name="_method" value="delete">
-                            <button class="card-header-icon" aria-label="apagar">
-                                <span class="icon is-medium">
-                                    <i class="fas fa-trash"></i>
+                        <p class="card-header-title">
+                            <span class="icon-text" style="align-items: center;">
+                                <span class="icon is-large">
+                                    <i class="fas fa-calendar"></i>
                                 </span>
-                            </button>
-                        </form>
+                                <span>Mês do registro</span>
+                            </span>
+                        </p>
+                        <button class="card-header-icon" aria-label="">
+                            <input class="button is-ghost" type="date" th:value="${consumo.mesConsumo}" readonly>
+                        </button>
                     </header>
                     <div class="card-content">
                         <div class="media">
                             <div class="media-left">
                                 <span class="icon is-large">
-                                    <i th:if="${lampada.estado} == acesa" class="fas fa-2x fa-lightbulb"
-                                        style="color: #FFD43B;"></i>
-                                    <i th:if="${lampada.estado} == apagada" class="far fa-2x fa-lightbulb"></i>
+                                    <i class="fas fa-2x fa-bolt"></i>
                                 </span>
                             </div>
                             <div class="media-content">
-                                <p class="title is-4" th:text="${lampada.apelido}"></p>
-                                <p class="subtitle is-6" th:text="${lampada.modo}"></p>
+                                <p class="subtitle is-6" th:text="${consumo.consumoWh} + ' watts hora'"></p>
                             </div>
                         </div>
                     </div>
-                    <footer class="card-footer">
-                        <form class="container is-fullwidth"
-                            th:action="@{/lampada/apagar/{id}(id=${lampada.lampadaId})}" method="post"
-                            th:if="${lampada.estado} == 'acesa'">
-                            <input type="hidden" name="_method" value="put">
-                            <button class="button is-fullwidth is-danger">Apagar</button>
-                        </form>
-
-                        <form class="container is-fullwidth"
-                            th:action="@{/lampada/acender/{id}(id=${lampada.lampadaId})}" method="post"
-                            th:if="${lampada.estado} == 'apagada'">
-                            <input type="hidden" name="_method" value="put">
-                            <button th:disabled="${lampada.modo} == automatico"
-                                class="button is-fullwidth is-primary">Acender</button>
-                        </form>
-
-                        <form class="container is-fullwidth"
-                            th:action="@{/lampada/manual/{id}(id=${lampada.lampadaId})}" method="post"
-                            th:if="${lampada.modo} == 'automatico'">
-                            <input type="hidden" name="_method" value="put">
-                            <button class="button is-fullwidth is-primary is-outlined">Alterar modo</button>
-                        </form>
-
-                        <form class="container is-fullwidth"
-                            th:action="@{/lampada/automatico/{id}(id=${lampada.lampadaId})}" method="post"
-                            th:if="${lampada.modo} == 'manual'">
-                            <input type="hidden" name="_method" value="put">
-                            <button class="button is-fullwidth is-primary is-outlined">Alterar modo</button>
-                        </form>
-                    </footer>
                 </div>
             </div>
         </div>

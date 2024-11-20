@@ -2,7 +2,6 @@ package com.pedrosbm.GreenLight.lampada;
 
 import com.pedrosbm.GreenLight.user.User;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,7 +22,7 @@ public class Lampada {
     private String estado;
     private String modo;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 }
