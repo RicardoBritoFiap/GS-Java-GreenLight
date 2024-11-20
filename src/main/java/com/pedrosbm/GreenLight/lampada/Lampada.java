@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -17,7 +18,10 @@ public class Lampada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long lampadaId;
 
+    @NotNull
     private String nomeDispositivo;
+
+    @NotNull
     private String apelido;
     private String estado;
     private String modo;
