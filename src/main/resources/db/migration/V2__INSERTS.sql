@@ -1,0 +1,2 @@
+insert into usuario(email, nome) values('pedrodentocohd@gmail.com', 'pedro');
+insert into lampada(nome_dispositivo, apelido, estado, modo, user_id) values('GreenLightLamp1', 'sala de estar', 'apagada', 'automatico', 1);

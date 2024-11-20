@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="https://www.thymeleaf.org/">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Home</title>
+</head>
+
+<body class="container">
+    <header>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <h1 class="title is-0"><span class="icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </span> GreenLight</h1>
+                </a>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item">Conferir consumo</a>
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <a class="button is-large" th:href="@{/user}">
+                            <span class="icon">
+                                <i class="fas fa-user"></i>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="container">
+        <div class="fixed-grid has-5-cols">
+            <div class="grid">
+                <div th:each="lampada: ${lampadas}" class="card ">
+                    <div class="card-content">
+                        <div class="media-left">
+                            <span class="icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </span>
+                        </div>
+
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4" th:text="${lampada.apelido}"></p>
+                                <p class="subtitle is-6" th:text="${lampada.modo}"></p>
+                                <p class="subtitle is-6" th:text="${lampada.estado}"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <button class="button is-ghost cart_add">inspecionar</button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
