@@ -83,9 +83,18 @@
 
                         <form class="container is-fullwidth" th:action="@{/lampada/acender/{id}(id=${lampada.lampadaId})}" method="post" th:if="${lampada.estado} == 'apagada'">
                             <input type="hidden" name="_method" value="put">
-                            <button class="button is-fullwidth is-primary">Acender</button>
+                            <button th:disabled="${lampada.modo} == automatico" class="button is-fullwidth is-primary">Acender</button>
                         </form>
 
+                        <form class="container is-fullwidth" th:action="@{/lampada/manual/{id}(id=${lampada.lampadaId})}" method="post" th:if="${lampada.modo} == 'automatico'">
+                            <input type="hidden" name="_method" value="put">
+                            <button class="button is-fullwidth is-primary is-outlined">Alterar modo</button>
+                        </form>
+
+                        <form class="container is-fullwidth" th:action="@{/lampada/automatico/{id}(id=${lampada.lampadaId})}" method="post" th:if="${lampada.modo} == 'manual'">
+                            <input type="hidden" name="_method" value="put">
+                            <button class="button is-fullwidth is-primary is-outlined">Alterar modo</button>
+                        </form>
                     </footer>
                 </div>
             </div>

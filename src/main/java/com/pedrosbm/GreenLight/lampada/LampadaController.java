@@ -56,6 +56,24 @@ public class LampadaController {
         return "redirect:/";
     }   
 
+    @PutMapping("lampada/automatico/{id}")
+    public String automatico(@PathVariable Long id, RedirectAttributes redirect) {
+        Lampada lampada = repository.findById(id).get();
+        lampada.setModo("automatico");
+        repository.save(lampada);
+        
+        return "redirect:/";
+    }   
+
+    @PutMapping("lampada/manual/{id}")
+    public String manual(@PathVariable Long id, RedirectAttributes redirect) {
+        Lampada lampada = repository.findById(id).get();
+        lampada.setModo("manual");
+        repository.save(lampada);
+        
+        return "redirect:/";
+    }   
+
     @DeleteMapping("lampada/{id}")
     public String deleteLampada(@PathVariable Long id, RedirectAttributes redirect){
         repository.deleteById(id);
