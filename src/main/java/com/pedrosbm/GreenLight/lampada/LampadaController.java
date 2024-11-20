@@ -13,14 +13,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
-@Slf4j
 public class LampadaController {
     @Autowired
     private LampadaRepository repository;
@@ -30,9 +25,6 @@ public class LampadaController {
         String email = principal.getAttribute("email");
         
         List<Lampada> lampadas = repository.findByUserEmail(email);
-        List<Lampada> lampadasAll = repository.findAll();
-        log.info("lampadas: " + lampadas);
-        log.info("Todas: " + lampadasAll);
         model.addAttribute("lampadas", lampadas);
 
         return "index";
@@ -46,14 +38,20 @@ public class LampadaController {
         return "lampada";
     }
     
-    @PutMapping("lampada")
-    public String novaLampada(@RequestBody @Valid Lampada lampada, RedirectAttributes redirect) {
-        Boolean exists = repository.existsById(lampada.getLampadaId());
-
-        if(exists){
-            repository.save(lampada);
-            redirect.addFlashAttribute("message", "Lampada editada com sucesso");
-        }
+    @PutMapping("lampada/acender/{id}")
+    public String acender(@PathVariable Long id, RedirectAttributes redirect) {
+        Lampada lampada = repository.findById(id).get();
+        lampada.setEstado("acesa");
+        repository.save(lampada);
+        
+        return "redirect:/";
+    }   
+    
+    @PutMapping("lampada/apagar/{id}")
+    public String apagar(@PathVariable Long id, RedirectAttributes redirect) {
+        Lampada lampada = repository.findById(id).get();
+        lampada.setEstado("apagada");
+        repository.save(lampada);
         
         return "redirect:/";
     }   

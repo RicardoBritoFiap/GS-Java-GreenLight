@@ -10,7 +10,7 @@
 </head>
 
 <body class="container">
-    <header>
+    <header class="mb-5">
         <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="/">
@@ -46,26 +46,46 @@
         </nav>
     </header>
     <main class="container">
-        <div class="fixed-grid has-5-cols">
+        <div class="fixed-grid has-4-cols">
             <div class="grid">
-                <div th:each="lampada: ${lampadas}" class="card ">
-                    <div class="card-content">
-                        <div class="media-left">
-                            <span class="icon">
-                                <i class="fas fa-lightbulb"></i>
+                <div th:each="lampada: ${lampadas}" class="card is-large">
+                    <header class="card-header">
+                        <p class="card-header-title" th:text="${lampada.nomeDispositivo}"></p>
+                        <button class="card-header-icon" aria-label="more options">
+                            <span class="icon is-medium">
+                                <i class="fas fa-edit"></i>
                             </span>
-                        </div>
-
+                            <span class="icon is-medium">
+                                <i class="fas fa-trash"></i>
+                            </span>
+                        </button>
+                    </header>
+                    <div class="card-content">
                         <div class="media">
+                            <div class="media-left">
+                                <span class="icon is-large">
+                                    <i th:if="${lampada.estado} == acesa" class="fas fa-2x fa-lightbulb"
+                                        style="color: #FFD43B;"></i>
+                                    <i th:if="${lampada.estado} == apagada" class="far fa-2x fa-lightbulb"></i>
+                                </span>
+                            </div>
                             <div class="media-content">
                                 <p class="title is-4" th:text="${lampada.apelido}"></p>
                                 <p class="subtitle is-6" th:text="${lampada.modo}"></p>
-                                <p class="subtitle is-6" th:text="${lampada.estado}"></p>
                             </div>
                         </div>
                     </div>
                     <footer class="card-footer">
-                        <button class="button is-ghost cart_add">inspecionar</button>
+                        <form class="container is-fullwidth" th:action="@{/lampada/apagar/{id}(id=${lampada.lampadaId})}" method="post" th:if="${lampada.estado} == 'acesa'">
+                            <input type="hidden" name="_method" value="put">
+                            <button class="button is-fullwidth is-danger">Apagar</button>
+                        </form>
+
+                        <form class="container is-fullwidth" th:action="@{/lampada/acender/{id}(id=${lampada.lampadaId})}" method="post" th:if="${lampada.estado} == 'apagada'">
+                            <input type="hidden" name="_method" value="put">
+                            <button class="button is-fullwidth is-primary">Acender</button>
+                        </form>
+
                     </footer>
                 </div>
             </div>
