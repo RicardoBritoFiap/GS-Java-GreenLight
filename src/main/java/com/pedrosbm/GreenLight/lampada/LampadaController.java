@@ -1,7 +1,9 @@
 package com.pedrosbm.GreenLight.lampada;
 
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -26,10 +28,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 public class LampadaController {
     private LampadaRepository repository;
     private UserRepository repository2;
+    private RabbitTemplate rabbitTemplate;
 
-    public LampadaController(LampadaRepository repository, UserRepository repository2) {
+    public LampadaController(LampadaRepository repository, UserRepository repository2, RabbitTemplate rabbitTemplate) {
         this.repository = repository;
         this.repository2 = repository2;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @GetMapping("form")
@@ -72,11 +76,19 @@ public class LampadaController {
     }
     
     @PutMapping("lampada/acender/{id}")
-    public String acender(@PathVariable Long id, RedirectAttributes redirect) {
+    public String acender(@PathVariable Long id, RedirectAttributes redirect,  @AuthenticationPrincipal OAuth2User principal) {
         Lampada lampada = repository.findById(id).get();
         lampada.setEstado("acesa");
         repository.save(lampada);
-        
+        String email = principal.getAttribute("email");
+
+        Map<String, String> payload = Map.of(
+            "email", email,
+            "mensagem", "A sua lampada foi acesa!: " + lampada.getApelido()
+        );
+
+        rabbitTemplate.convertAndSend("email-queue", payload);
+
         return "redirect:/";
     }   
     
@@ -99,11 +111,19 @@ public class LampadaController {
     }   
 
     @PutMapping("lampada/manual/{id}")
-    public String manual(@PathVariable Long id, RedirectAttributes redirect) {
+    public String manual(@PathVariable Long id, RedirectAttributes redirect, @AuthenticationPrincipal OAuth2User principal) {
         Lampada lampada = repository.findById(id).get();
         lampada.setModo("manual");
         repository.save(lampada);
-        
+        String email = principal.getAttribute("email");
+
+        Map<String, String> payload = Map.of(
+            "email", email,
+            "mensagem", "A sua lampada foi acesa!: " + lampada.getApelido()
+        );
+       
+        rabbitTemplate.convertAndSend("email-queue", payload);
+
         return "redirect:/";
     }   
 
