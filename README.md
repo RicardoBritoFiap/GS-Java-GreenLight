@@ -4,7 +4,7 @@
 
 - [Vídeo pitch]()
 - [Vídeo de demonstração](https://youtu.be/tLuo6l7kVMQ)
-- [Aplicação em nuvem](greenlightweb-bjeca9hxctd9btgg.eastus2-01.azurewebsites.net)
+- [Aplicação em nuvem](https://greenlightweb-bjeca9hxctd9btgg.eastus2-01.azurewebsites.net)
 
 ## Apresentação da ideia 
 
