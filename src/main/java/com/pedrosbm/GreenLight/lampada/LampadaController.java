@@ -17,11 +17,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.pedrosbm.GreenLight.user.User;
 import com.pedrosbm.GreenLight.user.UserRepository;
 
-import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.web.bind.annotation.PutMapping;
 
 @Controller
+@Slf4j
 public class LampadaController {
     private LampadaRepository repository;
     private UserRepository repository2;
@@ -31,7 +32,7 @@ public class LampadaController {
         this.repository2 = repository2;
     }
 
-    @GetMapping("/form")
+    @GetMapping("form")
     public String form(Lampada lampada){
         return "form";
     }
@@ -54,8 +55,8 @@ public class LampadaController {
         return "lampada";
     }
 
-    @PostMapping("/task")
-    public String create(@Valid Lampada lampada, BindingResult result, RedirectAttributes redirect, @AuthenticationPrincipal OAuth2User principal){
+    @PostMapping("lampada")
+    public String create( Lampada lampada, BindingResult result, RedirectAttributes redirect, @AuthenticationPrincipal OAuth2User principal){
         if (result.hasErrors()) return "form";
 
         String email = principal.getAttribute("email");
