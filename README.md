@@ -1,5 +1,13 @@
 # GreenLight
 
+## Links dos entregáveis
+
+- [Vídeo pitch]()
+- [Vídeo de demonstração](https://youtu.be/tLuo6l7kVMQ)
+- [Aplicação em nuvem](greenlightweb-bjeca9hxctd9btgg.eastus2-01.azurewebsites.net)
+
+## Apresentação da ideia 
+
 *Sistema Inteligente de Iluminação Sustentável*
 
 O GreenLight é uma solução inovadora e sustentável projetada para otimizar o uso de iluminação em grandes áreas, como indústrias, complexos empresariais e outros ambientes de grande escala. Utilizando sensores de luminosidade (LDR), o sistema garante que as lâmpadas sejam ativadas apenas quando necessário, promovendo economia de energia e sustentabilidade.
