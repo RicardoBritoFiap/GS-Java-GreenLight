@@ -2,7 +2,7 @@
 
 ## Links dos entregáveis
 
-- [Vídeo pitch]()
+- [Vídeo pitch](https://youtu.be/L9D2lSt581o)
 - [Vídeo de demonstração](https://youtu.be/tLuo6l7kVMQ)
 - [Aplicação em nuvem](https://greenlightweb-bjeca9hxctd9btgg.eastus2-01.azurewebsites.net)
 
